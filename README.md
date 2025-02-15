@@ -27,3 +27,16 @@ La soluzione consiste nell'utilizzare un file EDID personalizzato per forzare il
 2. Rendi eseguibile lo script:
    ```bash
    chmod +x setup_edid.sh
+### **Passo 3: Riavvia**
+      ```bash
+   sudo reboot
+### **Cosa fa lo script**
+Crea la directory /usr/lib/firmware/edid/ se non esiste.
+Copia il file EDID (PG278Q.bin) nella directory /usr/lib/firmware/edid/.
+Configura GRUB per utilizzare il file EDID all'avvio.
+Crea uno script per gestire il caricamento dell'EDID dopo la ripresa dalla sospensione.
+### **Nota**
+- Assicurati che il file EDID sia valido e specifico per il tuo monitor.
+- Se il monitor è collegato a una porta diversa da DP-1, modifica lo script sostituendo DP-1 con la porta corretta (es. DP-3).
+ ### **Nota**
+Utilizza questo script a tuo rischio. L'autore non è responsabile per eventuali danni al sistema.
