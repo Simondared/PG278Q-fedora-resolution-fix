@@ -28,8 +28,6 @@ La soluzione consiste nell'utilizzare un file EDID personalizzato per forzare il
    ```bash
    chmod +x setup_edid.sh
 ### **Passo 3: Riavvia**
-   ```bash
-   sudo reboot
 
 ### **Cosa fa lo script**
 
