@@ -32,6 +32,7 @@ La soluzione consiste nell'utilizzare un file EDID personalizzato per forzare il
    sudo reboot
 
 ### **Cosa fa lo script**
+
 Crea la directory /usr/lib/firmware/edid/ se non esiste.
 Copia il file EDID (PG278Q.bin) nella directory /usr/lib/firmware/edid/.
 Configura GRUB per utilizzare il file EDID all'avvio.
