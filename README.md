@@ -34,9 +34,10 @@ La soluzione consiste nell'utilizzare un file EDID personalizzato per forzare il
 Crea la directory /usr/lib/firmware/edid/ se non esiste.
 Copia il file EDID (PG278Q.bin) nella directory /usr/lib/firmware/edid/.
 Configura GRUB per utilizzare il file EDID all'avvio.
-Crea uno script per gestire il caricamento dell'EDID dopo la ripresa dalla sospensione.
+
 ### **Nota**
-- Assicurati che il file EDID sia valido e specifico per il tuo monitor.
+- Assicurati che il file EDID sia valido e specifico per il tuo monitor. Questo è specifico per **Asus ROG PG278Q**.
 - Se il monitor è collegato a una porta diversa da DP-1, modifica lo script sostituendo DP-1 con la porta corretta (es. DP-3).
  ### **Nota**
 Utilizza questo script a tuo rischio. L'autore non è responsabile per eventuali danni al sistema.
+
