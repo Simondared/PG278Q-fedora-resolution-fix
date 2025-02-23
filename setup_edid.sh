@@ -24,10 +24,10 @@ sudo chmod 644 "$EDID_TARGET"
 
 # Configura GRUB per utilizzare il file EDID
 echo "Configuro GRUB per utilizzare il file EDID..."
-if grep -q "drm.edid_firmware=DP-1:edid/$EDID_FILE" "$GRUB_CONFIG"; then
+if grep -q "drm.edid_firmware=DP-3:edid/$EDID_FILE" "$GRUB_CONFIG"; then
     echo "La configurazione di GRUB è già aggiornata."
 else
-    sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"/GRUB_CMDLINE_LINUX_DEFAULT=\"drm.edid_firmware=DP-1:edid\/$EDID_FILE /" "$GRUB_CONFIG"
+    sudo sed -i "s/GRUB_CMDLINE_LINUX_DEFAULT=\"/GRUB_CMDLINE_LINUX_DEFAULT=\"drm.edid_firmware=DP-3:edid\/$EDID_FILE /" "$GRUB_CONFIG"
     echo "Configurazione di GRUB aggiornata."
 fi
 
@@ -41,7 +41,7 @@ sudo bash -c "cat > $SUSPEND_SCRIPT << 'EOF'
 #!/bin/bash
 case \"\$1\" in
     resume|thaw)
-        echo \"DP-1:edid/$EDID_FILE\" > /sys/module/drm_kms_helper/parameters/edid_firmware
+        echo \"DP-3:edid/$EDID_FILE\" > /sys/module/drm_kms_helper/parameters/edid_firmware
         ;;
 esac
 EOF"
