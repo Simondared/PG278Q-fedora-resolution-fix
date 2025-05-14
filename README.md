@@ -1,43 +1,69 @@
-# Fix EDID per Asus ROG PG278Q su Linux
+# Fix EDID for Asus ROG PG278Q on Linux
 
-Questo progetto fornisce una soluzione per risolvere i problemi di riconoscimento del monitor **Asus ROG PG278Q** su sistemi Linux, specialmente quando si utilizza una scheda video AMD. Il problema è comune sui monitor con hardware G-Sync di prima generazione, che potrebbero non inviare correttamente i dati EDID al sistema.
+This project provides a solution to resolve recognition issues for the **Asus ROG PG278Q** monitor on Linux systems, especially when using an AMD graphics card. The problem is common on first-generation G-Sync hardware monitors, which may not correctly send EDID data to the system.
 
-## **Problema**
-Il monitor potrebbe essere riconosciuto con una risoluzione non ottimale (es. 640x480) e potrebbe non funzionare correttamente dopo la ripresa dalla sospensione.
+## Table of Contents
 
-## **Soluzione**
-La soluzione consiste nell'utilizzare un file EDID personalizzato per forzare il sistema a riconoscere correttamente il monitor. Questo progetto include uno script automatizzato che:
-1. Copia il file EDID nella directory corretta.
-2. Configura GRUB per utilizzare il file EDID.
-3. Crea uno script per gestire il caricamento dell'EDID dopo la ripresa dalla sospensione.
+- [Problem](#problem)  
+- [Solution](#solution)  
+- [Requirements](#requirements)  
+- [How to Use](#how-to-use)  
+  - [Step 1: Prepare the EDID File](#step-1-prepare-the-edid-file)  
+  - [Step 2: Run the Script](#step-2-run-the-script)  
+  - [Step 3: Reboot](#step-3-reboot)  
+- [What the Script Does](#what-the-script-does)  
+- [Customization](#customization)  
+- [Disclaimer](#disclaimer)
 
-## **Requisiti**
-- Un file EDID valido per il monitor Asus ROG PG278Q (es. `PG278Q.bin`).
-- Sistema operativo Linux (testato su Ubuntu).
-- Scheda video AMD con driver `amdgpu`.
+## Problem
 
-## **Come utilizzare**
+The monitor may be detected with a suboptimal resolution (e.g., 640×480) and may not function correctly after resuming from suspend.
 
-### **Passo 1: Prepara il file EDID**
-1. Ottieni il file EDID (`PG278Q.bin`) per il tuo monitor. Puoi generarlo utilizzando una scheda Nvidia o scaricarlo da una fonte affidabile.
-2. Posiziona il file EDID sul Desktop.
+## Solution
 
-### **Passo 2: Esegui lo script**
-1. Scarica lo script `setup_edid.sh` da questo repository.
-2. Rendi eseguibile lo script:
+Use a custom EDID file to force the system to recognize the monitor correctly. This project includes an automated script that:
+
+1. Copies the EDID file into the correct directory.  
+2. Configures GRUB to use the EDID file.  
+3. Creates a hook script to reload the EDID after resuming from suspend.
+
+## Requirements
+
+- A valid EDID file for the Asus ROG PG278Q monitor (e.g., `PG278Q.bin`).  
+- Linux operating system (tested on Ubuntu).  
+- AMD graphics card with the `amdgpu` driver.
+
+## How to Use
+
+### Step 1: Prepare the EDID File
+
+1. Obtain the EDID file (`PG278Q.bin`) for your monitor. You can generate it using an NVIDIA card or download it from a reliable source.  
+2. Place the EDID file on your Desktop.
+
+### Step 2: Run the Script
+
+1. Clone or download this repository.  
+2. Make the script executable:
    ```bash
    chmod +x setup_edid.sh
-### **Passo 3: Riavvia**
+   ```
+3. Run the script with root privileges:
+   ```bash
+   chmod +x setup_edid.sh
+   ```
 
-### **Cosa fa lo script**
+### Step 3: Reboot
 
-Crea la directory /usr/lib/firmware/edid/ se non esiste.
-Copia il file EDID (PG278Q.bin) nella directory /usr/lib/firmware/edid/.
-Configura GRUB per utilizzare il file EDID all'avvio.
+Reboot your system so that GRUB loads using the new EDID file.
 
-### **Nota**
-- Assicurati che il file EDID sia valido e specifico per il tuo monitor. Questo è specifico per **Asus ROG PG278Q**.
-- Se il monitor è collegato a una porta diversa da DP-1, modifica lo script sostituendo DP-1 con la porta corretta (es. DP-3).
- ### **Nota**
-Utilizza questo script a tuo rischio. L'autore non è responsabile per eventuali danni al sistema.
+### **What the Script Does**
 
+Creates the /usr/lib/firmware/edid/ directory if it does not already exist.
+Copies the EDID file (PG278Q.bin) into /usr/lib/firmware/edid/.
+Updates GRUB’s configuration to use the custom EDID at boot.
+
+### **Customization**
+If your monitor is connected to a port other than DP-1, edit the script and replace DP-1 with the correct port (e.g., DP-3).
+
+### **Disclaimer**
+Use this script at your own risk. The author is not responsible for any damage to your system.
