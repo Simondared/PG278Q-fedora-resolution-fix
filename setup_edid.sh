@@ -5,8 +5,7 @@ EDID_FILE="PG278Q.bin"
 EDID_SOURCE="$HOME/Desktop/$EDID_FILE"
 EDID_TARGET="/usr/lib/firmware/edid/$EDID_FILE"
 GRUB_CONFIG="/etc/default/grub"
-SUSPEND_SCRIPT="/etc/pm/sleep.d/99_edid_fix"
-DRM_PARAM="drm.edid_firmware=DP-1:edid/$EDID_FILE"
+DRM_PARAM="drm.edid_firmware=DP-1:edid/$EDID_FILE video=DP-1:e"
 
 # Check that the EDID file exists on the Desktop
 if [[ ! -f "$EDID_SOURCE" ]]; then
@@ -36,20 +35,6 @@ fi
 echo "Updating GRUB configuration..."
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 
-# Create the suspend/resume hook
-echo "Creating suspend/resume hook script..."
-sudo bash -c "cat > $SUSPEND_SCRIPT << 'EOF'
-#!/bin/bash
-case \"\$1\" in
-    resume|thaw)
-        echo \"$DRM_PARAM\" > /sys/module/drm_kms_helper/parameters/edid_firmware
-        ;;
-esac
-EOF"
-sudo chmod +x "$SUSPEND_SCRIPT"
-
 # Completion message
 echo "EDID setup completed successfully!"
 echo "Please reboot your system to apply the changes."
-
-exit 0
