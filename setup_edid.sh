@@ -6,7 +6,7 @@ EDID_SOURCE="$HOME/Desktop/$EDID_FILE"
 EDID_TARGET="/usr/lib/firmware/edid/$EDID_FILE"
 GRUB_CONFIG="/etc/default/grub"
 SUSPEND_SCRIPT="/etc/pm/sleep.d/99_edid_fix"
-DRM_PARAM="drm.edid_firmware=DP-3:edid/$EDID_FILE"
+DRM_PARAM="drm.edid_firmware=DP-1:edid/$EDID_FILE"
 
 # Check that the EDID file exists on the Desktop
 if [[ ! -f "$EDID_SOURCE" ]]; then
@@ -28,13 +28,13 @@ echo "Configuring GRUB to load the EDID..."
 if grep -q "$DRM_PARAM" "$GRUB_CONFIG"; then
     echo "GRUB is already configured."
 else
-    sudo sed -i "s|^GRUB_CMDLINE_LINUX_DEFAULT=\"\(.*\)\"|GRUB_CMDLINE_LINUX_DEFAULT=\"\1 $DRM_PARAM\"|" "$GRUB_CONFIG"
+    sudo sed -i "s|^GRUB_CMDLINE_LINUX=\"\(.*\)\"|GRUB_CMDLINE_LINUX=\"\1 $DRM_PARAM\"|" "$GRUB_CONFIG"
     echo "GRUB configuration updated."
 fi
 
 # Update GRUB
 echo "Updating GRUB configuration..."
-sudo update-grub
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 
 # Create the suspend/resume hook
 echo "Creating suspend/resume hook script..."
