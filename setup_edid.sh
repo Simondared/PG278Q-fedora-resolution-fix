@@ -10,7 +10,7 @@ DRM_PARAM="drm.edid_firmware=DP-1:edid/$EDID_FILE video=DP-1:e"
 # Check that the EDID file exists on the Desktop
 if [[ ! -f "$EDID_SOURCE" ]]; then
     echo "Error: EDID file not found on Desktop ($EDID_FILE)."
-    exit 1
+    return
 fi
 
 # Create the firmware directory if needed
@@ -34,6 +34,18 @@ fi
 # Update GRUB
 echo "Updating GRUB configuration..."
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+
+# Create the suspend/resume hook
+#echo "Creating suspend/resume hook script..."
+#sudo bash -c "cat > $SUSPEND_SCRIPT << 'EOF'
+#!/bin/bash
+#case \"\$1\" in
+#    resume|thaw)
+#        echo \"$DRM_PARAM\" > /sys/module/drm_kms_helper/parameters/edid_firmware
+#        ;;
+#esac
+#EOF"
+#sudo chmod +x "$SUSPEND_SCRIPT"
 
 # Completion message
 echo "EDID setup completed successfully!"
