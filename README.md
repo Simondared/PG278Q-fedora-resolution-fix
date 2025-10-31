@@ -1,7 +1,7 @@
 # Fix EDID for Asus ROG PG278Q on Fedora Linux
 
 This is a fork of a script that provides an easy way to resolve recognition issues for the **Asus ROG PG278Q** monitor on Linux systems, especially when using an AMD graphics card. The problem is common on first-generation G-Sync hardware monitors, which may not correctly send EDID data to the system.
-I changed the original script to work on Fedora Linux. I also commented out the suspend script part, as I have not yet encountered this problem on Fedora (I am also not entirely sure how it works as I only started using Linux recently and have very little experience).
+I changed the command to update the grub config as it appears to be different on Fedora. I also commented out the suspend script part, as I have not yet encountered this problem myself.
 
 ## Table of Contents
 
@@ -25,7 +25,7 @@ Use a custom EDID file to force the system to recognize the monitor correctly. T
 
 1. Copies the EDID file into ```/usr/lib/firmware/edid/```.
 2. Changes the GRUB config at ```/etc/default/grub``` to use the correct EDID file:
-   - Appends ```drm.edid_firmware=DP-1:edid/PG278Q.bin video=DP-1:e``` inside the double quotes of the option named GRUB_CMDLINE_LINUX.
+   - Appends ```drm.edid_firmware=DP-1:edid/PG278Q.bin video=DP-1:e``` inside the double quotes of the option named GRUB_CMDLINE_LINUX_DEFAULT.
 3. Updates the config by running.
    ```bash
    $ sudo grub2-mkconfig -o /boot/grub2/grub.cfg
@@ -34,9 +34,8 @@ Use a custom EDID file to force the system to recognize the monitor correctly. T
 ## How to Use
 
 ### Step 1: Prepare the EDID File
-
-1. Obtain the EDID file (`PG278Q.bin`) for your monitor. You can generate it using an NVIDIA card or download it from a reliable source.  
-2. Place the EDID file on your Desktop.
+1. Obtain the EDID file (`PG278Q.bin`) for your monitor. You can generate it using an NVIDIA card or download it from a reliable source.
+2. Place the EDID file in the same directory as the script or change EDID_SOURCE to its location.
 
 ### Step 2: Run the Script
 Run the script with:
@@ -45,7 +44,6 @@ Run the script with:
    ```
 
 ### Step 3: Reboot
-
 Reboot your system so that GRUB loads using the new EDID file.
 
 ### **Customization**
