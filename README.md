@@ -50,4 +50,4 @@ Reboot your system so that GRUB loads using the new EDID file.
 If your monitor is connected to a port other than DP-1, edit the script and replace DP-1 with the correct port (e.g., DP-3).
 
 ### **Disclaimer**
-Use this script at your own risk. The author is not responsible for any damage to your system.
+Use this script at your own risk. The author is not responsible for any damage to your system. This script has only been tested on one system (it might not work on yours). 
